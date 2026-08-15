@@ -1,0 +1,555 @@
+{
+ "1003": {
+  "name": "早雾",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 0.9,
+   "atkup": 0.9,
+   "unbalintensitybase": 1.0,
+   "damageupincantationbase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.4,
+   "atkup": 0.7,
+   "unbalintensitybase": 1.0,
+   "damageupgeneralbase": 0.8
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "chargegetefficiency",
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageupincantationbase",
+   "unbalintensitybase"
+  ]
+ },
+ "1004": {
+  "name": "安魂曲",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.8,
+   "damageupchaosbase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.35,
+   "atkup": 0.65,
+   "magbase": 0.2,
+   "damageupgeneralbase": 0.75
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupchaosbase",
+   "damageupgeneralbase"
+  ]
+ },
+ "1008": {
+  "name": "翳",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 0.9,
+   "atkup": 0.8,
+   "damageuplakshanabase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 0.9,
+   "atkadd": 0.3,
+   "atkup": 0.5,
+   "damageupgeneralbase": 0.75
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageuplakshanabase"
+  ]
+ },
+ "1010": {
+  "name": "娜娜莉",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.9,
+   "damageupnaturebase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 0.8,
+   "atkadd": 0.5,
+   "atkup": 0.9,
+   "damageupgeneralbase": 0.75
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageupnaturebase"
+  ]
+ },
+ "1019": {
+  "name": "薄荷",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.9,
+   "damageupnaturebase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.5,
+   "atkup": 0.85,
+   "magbase": 0.3,
+   "damageupgeneralbase": 0.75
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageupnaturebase"
+  ]
+ },
+ "1020": {
+  "name": "哈尼娅",
+  "main": {
+   "critbase": 0.5,
+   "unbalintensitybase": 1.0,
+   "magbase": 1.0,
+   "damageupsychebase": 0.5
+  },
+  "sub": {
+   "critbase": 0.5,
+   "critdamagebase": 0.45,
+   "atkadd": 0.25,
+   "atkup": 0.35,
+   "unbalintensitybase": 1.0,
+   "magbase": 1.0,
+   "damageupgeneralbase": 0.5
+  },
+  "highlight": [
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupsychebase",
+   "magbase",
+   "unbalintensitybase"
+  ]
+ },
+ "1021": {
+  "name": "埃德嘉",
+  "main": {
+   "hpmaxup": 1.0,
+   "unbalintensitybase": 0.7,
+   "magbase": 1.0,
+   "healup": 1.0
+  },
+  "sub": {
+   "hpmaxadd": 0.5,
+   "hpmaxup": 1.0,
+   "unbalintensitybase": 0.7,
+   "magbase": 1.0
+  },
+  "highlight": [
+   "healup",
+   "hpmaxadd",
+   "hpmaxup",
+   "magbase",
+   "unbalintensitybase"
+  ]
+ },
+ "1023": {
+  "name": "白藏",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.75,
+   "damageupincantationbase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.25,
+   "atkup": 0.55,
+   "magbase": 0.2,
+   "damageupgeneralbase": 0.8
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageupincantationbase"
+  ]
+ },
+ "1025": {
+  "name": "哈索尔",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 0.9,
+   "atkup": 0.8,
+   "damageuplakshanabase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 0.85,
+   "atkadd": 0.25,
+   "atkup": 0.5,
+   "damageupgeneralbase": 0.7
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageuplakshanabase"
+  ]
+ },
+ "1033": {
+  "name": "阿德勒",
+  "main": {
+   "critbase": 0.5,
+   "defup": 1.0,
+   "unbalintensitybase": 1.0,
+   "damageupincantationbase": 0.6
+  },
+  "sub": {
+   "critbase": 0.5,
+   "critdamagebase": 0.45,
+   "defadd": 0.5,
+   "defup": 1.0,
+   "unbalintensitybase": 1.0,
+   "damageupgeneralbase": 0.6
+  },
+  "highlight": [
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageupincantationbase",
+   "defadd",
+   "defup",
+   "unbalintensitybase"
+  ]
+ },
+ "1036": {
+  "name": "残虹",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.8,
+   "magbase": 1.0,
+   "damageupincantationbase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.25,
+   "atkup": 0.5,
+   "magbase": 0.45,
+   "damageupgeneralbase": 0.7
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageupincantationbase",
+   "magbase"
+  ]
+ },
+ "1039": {
+  "name": "法帝娅",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "hpmaxup": 1.0,
+   "magbase": 0.7,
+   "damageuppsychicallybase": 1.0
+  },
+  "sub": {
+   "critbase": 0.9,
+   "critdamagebase": 0.9,
+   "hpmaxadd": 0.5,
+   "hpmaxup": 1.0,
+   "magbase": 0.7,
+   "damageupgeneralbase": 0.8
+  },
+  "highlight": [
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageuppsychicallybase",
+   "hpmaxadd",
+   "hpmaxup",
+   "magbase"
+  ]
+ },
+ "1046": {
+  "name": "异能者(男)",
+  "main": {
+   "critbase": 0.7,
+   "critdamagebase": 0.7,
+   "atkup": 0.5,
+   "magbase": 1.0,
+   "damageupcosmosbase": 0.7
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.4,
+   "atkup": 0.75,
+   "magbase": 1.0,
+   "damageupgeneralbase": 1.0
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupcosmosbase",
+   "damageupgeneralbase",
+   "magbase"
+  ]
+ },
+ "1051": {
+  "name": "异能者(女)",
+  "main": {
+   "critbase": 0.7,
+   "critdamagebase": 0.7,
+   "atkup": 0.5,
+   "magbase": 1.0,
+   "damageupcosmosbase": 0.7
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.4,
+   "atkup": 0.75,
+   "magbase": 1.0,
+   "damageupgeneralbase": 1.0
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupcosmosbase",
+   "damageupgeneralbase",
+   "magbase"
+  ]
+ },
+ "1052": {
+  "name": "浔",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.8,
+   "damageupcosmosbase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.45,
+   "atkup": 0.9,
+   "damageupgeneralbase": 0.8
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupcosmosbase",
+   "damageupgeneralbase"
+  ]
+ },
+ "1054": {
+  "name": "达芙蒂尔",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 0.8,
+   "atkup": 0.8,
+   "unbalintensitybase": 1.0,
+   "damageupchaosbase": 0.9
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.3,
+   "atkup": 0.55,
+   "unbalintensitybase": 1.0,
+   "damageupgeneralbase": 0.7
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupchaosbase",
+   "damageupgeneralbase",
+   "unbalintensitybase"
+  ]
+ },
+ "1055": {
+  "name": "九原",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.9,
+   "damageupnaturebase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.45,
+   "atkup": 0.85,
+   "damageupgeneralbase": 0.8
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageupnaturebase"
+  ]
+ },
+ "1070": {
+  "name": "海月",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.8,
+   "damageupsychebase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.25,
+   "atkup": 0.45,
+   "magbase": 0.3,
+   "damageupgeneralbase": 0.7
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageupsychebase"
+  ]
+ },
+ "1071": {
+  "name": "卡厄斯",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.9,
+   "damageuplakshanabase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.4,
+   "atkup": 0.75,
+   "magbase": 0.3,
+   "damageupgeneralbase": 0.65
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageuplakshanabase"
+  ]
+ },
+ "1073": {
+  "name": "小吱",
+  "main": {
+   "damageupcosmosbase": 1.0
+  },
+  "sub": {
+   "critbase": 0.4,
+   "critdamagebase": 0.7,
+   "atkadd": 0.2,
+   "atkup": 0.4,
+   "damageupgeneralbase": 1.0
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupcosmosbase",
+   "damageupgeneralbase"
+  ]
+ },
+ "1075": {
+  "name": "伊洛伊",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 0.9,
+   "atkup": 1.0,
+   "healup": 1.0,
+   "damageupnaturebase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.55,
+   "atkup": 1.0,
+   "damageupgeneralbase": 0.9
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupgeneralbase",
+   "damageupnaturebase",
+   "healup"
+  ]
+ },
+ "1076": {
+  "name": "真红",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.8,
+   "damageupcosmosbase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.35,
+   "atkup": 0.65,
+   "damageupgeneralbase": 0.75
+  },
+  "highlight": [
+   "atkadd",
+   "atkup",
+   "critbase",
+   "critdamagebase",
+   "damageupcosmosbase",
+   "damageupgeneralbase"
+  ]
+ }
+}
