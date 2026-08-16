@@ -42,6 +42,16 @@ PIECE_GRADES = (
     (0.0, "D"),
 )
 
+# 塔吉多装备数据用双 p（damageuppsychebase），工坊权重接口/weights.json 用单 p（damageupsychebase），
+# 两者是同一属性「魂属性异能伤害增强」，按游戏侧拼写统一。
+_PROP_ID_ALIASES = {"damageupsychebase": "damageuppsychebase"}
+
+
+def _canon_prop_id(prop_id: str) -> str:
+    pid = (prop_id or "").lower()
+    return _PROP_ID_ALIASES.get(pid, pid)
+
+
 SHOW_DRIVE_BADGE = True
 
 
@@ -74,10 +84,10 @@ class _Result:
         )
 
     def is_main_prop_counted(self, prop: CharacterProperty) -> bool:
-        return self.main_weights.get(prop.id.lower(), 0.0) >= 0.4
+        return self.main_weights.get(_canon_prop_id(prop.id), 0.0) >= 0.4
 
     def is_sub_prop_recommended(self, prop: CharacterProperty) -> bool:
-        return self.sub_weights.get(prop.id.lower(), 0.0) >= 0.4
+        return self.sub_weights.get(_canon_prop_id(prop.id), 0.0) >= 0.4
 
     def highlight_color(self, prop: CharacterProperty, locked: bool) -> tuple[int, int, int] | None:
         return (255, 176, 74) if not locked else (255, 200, 130)
@@ -93,9 +103,9 @@ def _weights() -> dict[str, dict[str, dict[str, float] | frozenset[str]]]:
     result: dict[str, dict[str, dict[str, float] | frozenset[str]]] = {}
     for char_id, data in raw.items():
         result[str(char_id)] = {
-            "main": {str(attr).lower(): float(weight) for attr, weight in (data.get("main") or {}).items()},
-            "sub": {str(attr).lower(): float(weight) for attr, weight in (data.get("sub") or {}).items()},
-            "highlight": frozenset(str(attr).lower() for attr in (data.get("highlight") or [])),
+            "main": {_canon_prop_id(attr): float(weight) for attr, weight in (data.get("main") or {}).items()},
+            "sub": {_canon_prop_id(attr): float(weight) for attr, weight in (data.get("sub") or {}).items()},
+            "highlight": frozenset(_canon_prop_id(attr) for attr in (data.get("highlight") or [])),
         }
     return result
 
@@ -158,7 +168,7 @@ def _weight_for(
     name: str | None = None,
     name_map: dict[str, float] | None = None,
 ) -> float:
-    pid = (prop_id or "").lower()
+    pid = _canon_prop_id(prop_id)
     v = weights.get(pid, 0.0)
     if not v:
         v = weights.get(pid.replace("base", ""), 0.0)
@@ -192,7 +202,7 @@ class YuyeScorer(BaseScorer):
     meta = ScorerMeta(
         name="yuye",
         author="雨夜",
-        version="1.3.0",
+        version="1.3.1",
         description="权重数据来自异环工坊",
     )
 
