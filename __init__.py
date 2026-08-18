@@ -3,10 +3,15 @@
 from __future__ import annotations
 
 import json
+import os
+import time
+import asyncio
 from pathlib import Path
 from functools import lru_cache
 from dataclasses import dataclass, field
 from collections.abc import Sequence
+
+import httpx
 
 from ...contract import GradeSpec, BaseScorer, ScorerMeta
 from ...registry import register_scorer
@@ -15,6 +20,16 @@ from ....utils.resource.RESOURCE_PATH import SCORING_PATH
 
 _DATA = Path(__file__).parent / "data"
 _ASSETS = Path(__file__).parent / "assets"
+
+# 权重数据源：异环工坊开放接口（4 小时 TTL 缓存，接口不可用时回退本地 weights.json）
+_API_URL = "https://yh.zzzmap.com/api/open/game-character/weight-configs"
+_API_TTL_SECONDS = 4 * 3600
+_API_TIMEOUT = 8.0
+
+# 远程权重内存缓存
+_REMOTE_WEIGHTS: dict | None = None
+_REMOTE_FETCHED_AT: float = 0.0
+_FETCH_LOCK: asyncio.Lock | None = None
 
 WORKSHOP_TOTAL_AREA = 35
 WORKSHOP_RATING_TOTAL = 280.0
@@ -93,13 +108,7 @@ class _Result:
         return (255, 176, 74) if not locked else (255, 200, 130)
 
 
-@lru_cache(maxsize=1)
-def _weights() -> dict[str, dict[str, dict[str, float] | frozenset[str]]]:
-    """异环工坊角色词条权重（data/weights.json）。"""
-    path = _DATA / "weights.json"
-    if not path.exists():
-        raise ValueError(f"评分数据缺失: {path}")
-    raw = json.loads(path.read_text(encoding="utf-8"))
+def _normalize_weights(raw: dict) -> dict[str, dict[str, dict[str, float] | frozenset[str]]]:
     result: dict[str, dict[str, dict[str, float] | frozenset[str]]] = {}
     for char_id, data in raw.items():
         result[str(char_id)] = {
@@ -108,6 +117,106 @@ def _weights() -> dict[str, dict[str, dict[str, float] | frozenset[str]]]:
             "highlight": frozenset(_canon_prop_id(attr) for attr in (data.get("highlight") or [])),
         }
     return result
+
+
+@lru_cache(maxsize=1)
+def _local_weights() -> dict[str, dict[str, dict[str, float] | frozenset[str]]]:
+    """本地兜底权重（data/weights.json，异环工坊接口快照）。"""
+    path = _DATA / "weights.json"
+    if not path.exists():
+        raise ValueError(f"评分数据缺失: {path}")
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    return _normalize_weights(raw)
+
+
+def _weights() -> dict[str, dict[str, dict[str, float] | frozenset[str]]]:
+    """生效权重：远程接口成功优先，否则本地兜底。"""
+    if _REMOTE_WEIGHTS is not None:
+        return _REMOTE_WEIGHTS
+    return _local_weights()
+
+
+def _load_api_key() -> str | None:
+    """接口密钥：环境变量 YH_WEIGHT_API_KEY 优先，其次 data/api_key.txt。"""
+    key = os.environ.get("YH_WEIGHT_API_KEY")
+    if key:
+        return key.strip()
+    path = _DATA / "api_key.txt"
+    if path.exists():
+        key = path.read_text(encoding="utf-8").strip()
+        if key:
+            return key
+    return None
+
+
+def _parse_api_payload(payload: dict) -> dict[str, dict[str, dict[str, float] | frozenset[str]]]:
+    """异环工坊权重接口响应 -> 包内权重格式。"""
+    raw: dict[str, dict] = {}
+    for char in payload.get("data") or []:
+        char_id = str(char.get("itemId") or "").strip()
+        if not char_id:
+            continue
+        wc = char.get("weightConfig") or {}
+        weights = wc.get("weights") if isinstance(wc, dict) else (wc if isinstance(wc, list) else None)
+        main: dict[str, float] = {}
+        sub: dict[str, float] = {}
+        highlight: list[str] = []
+        for item in weights or []:
+            key = _canon_prop_id(str(item.get("key") or ""))
+            if not key:
+                continue
+            main_value = float(item.get("main_value") or 0)
+            sub_value = float(item.get("value") or 0)
+            if main_value > 0:
+                main[key] = main_value
+            if sub_value > 0:
+                sub[key] = sub_value
+            if item.get("highlight"):
+                highlight.append(key)
+        raw[char_id] = {
+            "name": str(char.get("name") or ""),
+            "main": main,
+            "sub": sub,
+            "highlight": highlight,
+        }
+    if not raw:
+        raise ValueError("权重接口未解析到角色数据")
+    return _normalize_weights(raw)
+
+
+def _fetch_lock() -> asyncio.Lock:
+    global _FETCH_LOCK
+    if _FETCH_LOCK is None:
+        _FETCH_LOCK = asyncio.Lock()
+    return _FETCH_LOCK
+
+
+async def _maybe_refresh_weights(force: bool = False) -> None:
+    """按 TTL 拉取远程权重；失败静默，保留现有数据（远程或本地兜底）。"""
+    global _REMOTE_WEIGHTS, _REMOTE_FETCHED_AT
+    now = time.time()
+    if not force and _REMOTE_WEIGHTS is not None and now - _REMOTE_FETCHED_AT < _API_TTL_SECONDS:
+        return
+    key = _load_api_key()
+    if not key:
+        return
+    async with _fetch_lock():
+        now = time.time()
+        if not force and _REMOTE_WEIGHTS is not None and now - _REMOTE_FETCHED_AT < _API_TTL_SECONDS:
+            return
+        try:
+            async with httpx.AsyncClient(timeout=_API_TIMEOUT) as client:
+                resp = await client.get(
+                    _API_URL,
+                    headers={"X-API-Key": key, "Content-Type": "application/json"},
+                )
+                resp.raise_for_status()
+                payload = resp.json()
+            _REMOTE_WEIGHTS = _parse_api_payload(payload)
+            _REMOTE_FETCHED_AT = time.time()
+        except Exception:
+            # 接口不可用：保留本地兜底，下次刷新面板再试
+            pass
 
 
 @lru_cache(maxsize=1)
@@ -202,7 +311,7 @@ class YuyeScorer(BaseScorer):
     meta = ScorerMeta(
         name="yuye",
         author="雨夜",
-        version="1.3.1",
+        version="1.4.0",
         description="权重数据来自异环工坊",
     )
 
@@ -234,12 +343,17 @@ class YuyeScorer(BaseScorer):
         return "\n".join(lines)
 
     async def prepare(self) -> None:
+        await _maybe_refresh_weights(force=True)
         _weights()
 
     async def close(self) -> None:
-        _weights.cache_clear()
+        global _REMOTE_WEIGHTS, _REMOTE_FETCHED_AT
+        _REMOTE_WEIGHTS = None
+        _REMOTE_FETCHED_AT = 0.0
+        _local_weights.cache_clear()
 
     async def score_character(self, character: CharacterDetail) -> _Result | None:
+        await _maybe_refresh_weights()
         weights = _weights().get(str(character.id))
         if not weights:
             return None

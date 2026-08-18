@@ -1,1 +1,3 @@
 __pycache__/
+data/api_key.txt
+data/cache_weights.json
