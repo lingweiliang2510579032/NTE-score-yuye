@@ -91,6 +91,10 @@ class _Result:
     effective_names: frozenset[str] = frozenset()
 
     def is_role_prop_effective(self, prop: CharacterProperty) -> bool:
+        # 角色面板：对该角色「有效」的词条高亮 —— 接口 highlight 标记即工坊的有效词条表，
+        # 优先按属性 id 精确命中；接口没标时再用权重兜底。
+        if _canon_prop_id(prop.id) in self.effective_ids:
+            return True
         ids = _attr_name_ids().get(prop.name, ())
         return any(
             self.main_weights.get(i, 0.0) >= 0.4 or self.sub_weights.get(i, 0.0) >= 0.4
@@ -98,10 +102,18 @@ class _Result:
         )
 
     def is_main_prop_counted(self, prop: CharacterProperty) -> bool:
+        # 装备主词条：只有「计入评分」的才高亮。驱动块主词条不在工坊主词条表内
+        # （权重里没有对应 main 项），因此恒为 False、不亮，这是预期行为。
         return self.main_weights.get(_canon_prop_id(prop.id), 0.0) >= 0.4
 
     def is_sub_prop_recommended(self, prop: CharacterProperty) -> bool:
-        return self.sub_weights.get(_canon_prop_id(prop.id), 0.0) >= 0.4
+        # 装备副词条：推荐词条高亮。接口的 highlight 是「有效主词条 ∪ 有效副词条」，
+        # 所以先限定在该角色的副词条表内，再看权重达标或接口标为有效。
+        pid = _canon_prop_id(prop.id)
+        weight = self.sub_weights.get(pid, 0.0)
+        if weight <= 0:
+            return False
+        return weight >= 0.4 or pid in self.effective_ids
 
     def highlight_color(self, prop: CharacterProperty, locked: bool) -> tuple[int, int, int] | None:
         return (255, 176, 74) if not locked else (255, 200, 130)
@@ -291,7 +303,7 @@ class YuyeScorer(BaseScorer):
     meta = ScorerMeta(
         name="yuye",
         author="雨夜",
-        version="1.4.0",
+        version="1.4.1",
         description="权重数据来自异环工坊",
     )
 
