@@ -1,4 +1,29 @@
 {
+ "1042": {
+  "name": "黑羽",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.9,
+   "damageuppsychebase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkadd": 0.25,
+   "atkup": 0.55,
+   "magbase": 0.3,
+   "damageupgeneralbase": 0.65
+  },
+  "highlight": [
+   "critbase",
+   "critdamagebase",
+   "atkadd",
+   "atkup",
+   "damageupgeneralbase",
+   "damageuppsychebase"
+  ]
+ },
  "1072": {
   "name": "灵可",
   "main": {
