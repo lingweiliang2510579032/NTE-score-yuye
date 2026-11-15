@@ -1,4 +1,54 @@
 {
+ "1090": {
+  "name": "曳尔沐",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.8,
+   "damageupcosmosbase": 1.0
+  },
+  "sub": {
+   "critbase": 0.8,
+   "critdamagebase": 1.0,
+   "atkadd": 0.25,
+   "atkup": 0.55,
+   "magbase": 0.2,
+   "damageupgeneralbase": 0.6
+  },
+  "highlight": [
+   "critbase",
+   "critdamagebase",
+   "atkadd",
+   "atkup",
+   "damageupgeneralbase",
+   "damageupcosmosbase"
+  ]
+ },
+ "1057": {
+  "name": "明音凛",
+  "main": {
+   "critbase": 1.0,
+   "critdamagebase": 1.0,
+   "atkup": 0.8,
+   "damageuplakshanabase": 1.0
+  },
+  "sub": {
+   "critbase": 1.0,
+   "critdamagebase": 0.8,
+   "atkadd": 0.2,
+   "atkup": 0.4,
+   "magbase": 0.35,
+   "damageupgeneralbase": 0.6
+  },
+  "highlight": [
+   "critbase",
+   "critdamagebase",
+   "atkadd",
+   "atkup",
+   "damageupgeneralbase",
+   "damageuplakshanabase"
+  ]
+ },
  "1042": {
   "name": "黑羽",
   "main": {
